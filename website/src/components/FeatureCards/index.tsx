@@ -14,7 +14,7 @@ export type FeatureCardsProps = {
   className?: string;
 };
 
-function IconContainer({icon}: {icon: React.ReactNode}): JSX.Element {
+function IconContainer({icon}: {icon: React.ReactNode}): React.ReactElement {
   const content = typeof icon === 'string' ? (
     <span className={styles.icon} aria-hidden>
       {icon}
@@ -25,23 +25,23 @@ function IconContainer({icon}: {icon: React.ReactNode}): JSX.Element {
   return <div className={styles.iconWrap}>{content}</div>;
 }
 
-export default function FeatureCards(props: FeatureCardsProps): JSX.Element {
+export default function FeatureCards(props: FeatureCardsProps): React.ReactElement {
   const {items, columns = 4, className} = props;
   const normalizedColumns = Math.min(6, Math.max(1, Math.floor(columns)));
-  const colSize = Math.max(1, Math.min(12, Math.floor(12 / normalizedColumns)));
 
   return (
     <section className={clsx(styles.grid, className)}>
       <div className="container">
-        <div className="row">
+        <div
+          className={styles.cards}
+          style={{gridTemplateColumns: `repeat(${normalizedColumns}, minmax(0, 1fr))`}}
+        >
           {items.map((item, index) => (
-            <div key={index} className={clsx('col', `col--${colSize}`)}>
-              <div className={styles.card}>
-                <IconContainer icon={item.icon} />
-                <div className={styles.content}>
-                  <h3 className={styles.title}>{item.title}</h3>
-                  <p className={styles.desc}>{item.description}</p>
-                </div>
+            <div key={index} className={styles.card}>
+              <IconContainer icon={item.icon} />
+              <div className={styles.content}>
+                <h3 className={styles.title}>{item.title}</h3>
+                <p className={styles.desc}>{item.description}</p>
               </div>
             </div>
           ))}
