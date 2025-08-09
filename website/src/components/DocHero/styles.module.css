@@ -1,0 +1,42 @@
+.hero {
+  padding: 2.5rem 0 1.25rem 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, var(--ifm-background-surface-color) 100%);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--ifm-color-primary);
+  background: color-mix(in lab, var(--ifm-color-primary) 12%, transparent);
+  border: 1px solid color-mix(in lab, var(--ifm-color-primary) 35%, transparent);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.8rem, 2.2rem + 1vw, 3rem);
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+
