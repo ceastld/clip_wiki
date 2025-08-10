@@ -1,0 +1,40 @@
+.clickableImage {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+  /* Universal image optimization for all displays */
+  image-rendering: crisp-edges;
+  -webkit-image-rendering: crisp-edges;
+  -moz-image-rendering: crisp-edges;
+  /* Prevent blur and ensure sharp edges */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Hardware acceleration for better quality */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Prevent subpixel rendering issues */
+  image-orientation: from-image;
+  object-fit: contain;
+}
+
+.clickableImage:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  -webkit-transform: translateY(-1px);
+}
+
+.clickableImage:active {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+}
+
+/* Universal optimization for all display types */
+@media screen {
+  .clickableImage {
+    image-rendering: crisp-edges;
+    -webkit-image-rendering: crisp-edges;
+    -moz-image-rendering: crisp-edges;
+  }
+}

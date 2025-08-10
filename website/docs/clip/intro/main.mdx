@@ -1,0 +1,27 @@
+# 剪贴板动作主界面
+
+import { ClickableImage } from '@site/src/utils/mdx-imports';
+import clipwindow from './image/clipwindow.png';
+
+<div className="responsive-layout">
+  <div className="image-container">
+    <ClickableImage src={clipwindow} alt="剪贴板动作主界面" />
+  </div>
+  <div className="text-container">
+    ### 界面说明
+    
+    这是剪贴板动作的主界面，您可以在这里查看和管理所有的剪贴板内容。
+
+    1. 标签栏，点击标签栏可以切换不同的标签页，快捷键：`Tab`  
+    2. 标签栏空白处，右键可以打开设置界面
+    3. 常用的控制功能，包括固定，暂停监控，关闭界面等
+        * 固定：界面会固定在屏幕上，不会自动消失
+        * 暂停监控：暂停监控剪贴板改变，不收集剪贴板内容
+    4. 分组标签栏，可以切换不同的分组，在设置中可以修改分组以及筛选策略
+    5. 更多常用的设置项，包括置顶，暂停监控，关闭界面等
+    6. 搜索框，输入内容进行筛选，快捷键：a-z 的字母键
+    7. 剪贴项，鼠标右键打开菜单，可以执行更多操作
+    8. 剪贴项的序号，从1开始
+    9. 一条对比度较高的细线，可以区分最近复制的剪贴板项是否粘贴使用过
+  </div>
+</div>

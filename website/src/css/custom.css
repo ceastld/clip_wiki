@@ -28,3 +28,106 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* MDX document image styles */
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s ease;
+}
+
+.markdown img:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Hide react-modal-image titlebar to prevent image obstruction */
+.react-modal-image__modal {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.react-modal-image__modal-header {
+  display: none !important;
+}
+
+.react-modal-image__modal-title {
+  display: none !important;
+}
+
+.react-modal-image__modal-close {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 1001 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+  font-size: 20px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.react-modal-image__modal-close:hover {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+.react-modal-image__modal-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+.react-modal-image__modal-image {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+}
+
+/* Responsive layout for image and text side by side */
+.responsive-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.responsive-layout .image-container {
+  flex: 0 0 auto;
+  min-width: 300px;
+}
+
+.responsive-layout .text-container {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .responsive-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .responsive-layout .image-container {
+    min-width: auto;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .responsive-layout .text-container {
+    width: 100%;
+  }
+}

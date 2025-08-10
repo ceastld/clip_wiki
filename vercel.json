@@ -1,0 +1,11 @@
+{
+  "framework": "other",
+  "devCommand": "npm run start --prefix website",
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
+
+

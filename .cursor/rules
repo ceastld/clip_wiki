@@ -1,0 +1,32 @@
+# Project Rules
+
+## Documentation Structure Rules
+
+### Folder Naming
+- Use short, descriptive English words for documentation folders
+- Keep folder names concise and meaningful
+- Use lowercase with hyphens for multi-word folders
+- Examples: `intro`, `guide`, `api`, `config`, `extend`
+
+### File Naming
+- Use English words for all file names
+- Use lowercase with hyphens for multi-word files
+- Keep file names short and descriptive
+- Examples: `README.mdx`, `getting-started.mdx`, `api-reference.mdx`
+
+### Content Language
+- Page titles must be written in Chinese
+- Page content must be written in Chinese
+- Code comments should be in English
+- File paths and technical terms can remain in English
+
+### Documentation Standards
+- Each documentation folder should have a `_category_.json` file for Docusaurus categorization
+- Use `.mdx` extension for files that need React components
+- Use `.md` extension for simple markdown files
+- Include proper frontmatter with title and description
+
+### Code Standards
+- Python: Use type hints in all code
+- Git commits: Follow conventional commit format `<type>(<scope>): <subject>`
+- Use English for all code comments

@@ -42,10 +42,12 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          // Exclude the raw archive from docs sidebar/build
+          exclude: ['**/raw/**'],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/ceastld/clip_wiki/edit/main/website/',
         },
         blog: {
           showReadingTime: true,
@@ -56,7 +58,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/ceastld/clip_wiki/edit/main/website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
