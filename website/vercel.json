@@ -4,13 +4,13 @@
   "framework": null,
   "installCommand": "npm install",
   "devCommand": "npm run start",
-  "regions": ["hkg1"],
   "env": {
     "VERCEL": "1"
   },
-  "functions": {
-    "website/build/**/*.html": {
-      "maxDuration": 30
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  }
+  ]
 }

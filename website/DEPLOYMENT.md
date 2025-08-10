@@ -128,3 +128,32 @@ npm run serve
 - 确保 `package.json` 中的 Node.js 版本要求与 Vercel 兼容
 - 当前配置的 Node.js 版本要求：`>=18.0`
 - 如果遇到构建问题，检查 Vercel 构建日志
+
+## 故障排除
+
+### Vercel 404 错误
+
+如果遇到 404 错误，请检查：
+
+1. **Vercel 配置**：确保 `vercel.json` 文件在 `website` 目录中
+2. **重写规则**：确保 `rewrites` 配置正确
+3. **环境变量**：确保 `VERCEL=1` 环境变量已设置
+4. **构建输出**：确保 `build` 目录包含所有必要文件
+
+### 测试配置
+
+运行以下命令测试配置：
+
+```bash
+# 测试 Vercel 配置
+node scripts/test-vercel.js
+
+# 测试完整部署配置
+npm run test:deploy
+```
+
+### 常见问题
+
+1. **404 错误**：通常是重写规则问题，确保所有路由都重定向到 `index.html`
+2. **构建失败**：检查 Node.js 版本和依赖项
+3. **路由问题**：确保 Docusaurus 配置中的 `baseUrl` 设置正确
