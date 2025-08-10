@@ -35,11 +35,18 @@
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  object-fit: cover;
   background: var(--ifm-color-emphasis-200);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Override Docusaurus global img styles */
+.icon img {
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
 }
 
 .iconFallback {

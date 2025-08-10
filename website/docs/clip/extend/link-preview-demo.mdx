@@ -1,0 +1,75 @@
+---
+title: 链接预览按钮演示
+description: 测试链接预览按钮组件的功能
+---
+
+import LinkPreviewButton from '@site/src/components/LinkPreviewButton';
+
+# 链接预览按钮演示
+
+这是一个演示页面，展示链接预览按钮组件使用 link-preview-js 库的效果。
+
+## 实际链接测试
+
+### 大尺寸按钮 - Quicker官网
+
+<LinkPreviewButton size="small"
+ url="https://getquicker.net"/>
+
+### 小尺寸按钮 - GitHub
+
+<LinkPreviewButton 
+  url="https://github.com"
+  size="small"
+  fallbackTitle="GitHub"
+  fallbackSummary="全球最大的代码托管平台"
+/>
+
+### 大尺寸按钮 - 百度
+
+<LinkPreviewButton 
+  url="https://www.baidu.com"
+  size="big"
+  fallbackTitle="百度"
+  fallbackSummary="全球最大的中文搜索引擎"
+/>
+
+## 技术说明
+
+### 实现方式
+
+组件基于 **link-preview-js** 库实现：
+
+1. **调用库函数**：使用 `getLinkPreview(url)` 获取完整元数据
+2. **智能解析**：自动提取标题、描述、图片和图标
+3. **数据优化**：处理文本长度和图片优先级
+4. **备用方案**：使用 Google Favicon 服务获取图标
+
+### 数据提取流程
+
+1. 组件加载时调用 link-preview-js 库
+2. 库自动获取网页元数据
+3. 提取标题、描述和图标信息
+4. 如果获取失败，使用备用数据
+
+### 优势
+
+- **成熟稳定**：基于经过验证的库
+- **功能全面**：支持多种元数据格式
+- **类型安全**：完整的 TypeScript 支持
+- **无依赖冲突**：与 React 19 兼容
+- **持续维护**：43个版本迭代
+
+### 库特性
+
+- **多格式支持**：Open Graph、Twitter Cards、标准 meta 标签
+- **智能解析**：自动处理相对路径和绝对路径
+- **错误处理**：优雅处理网络错误和解析错误
+- **性能优化**：高效的 HTML 解析
+
+### 错误处理
+
+- 网络请求失败时显示备用数据
+- 图片加载失败时显示默认图标
+- 解析错误时显示域名作为标题
+- 优雅降级确保用户体验

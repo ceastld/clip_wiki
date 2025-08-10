@@ -1,0 +1,98 @@
+# Project Rules
+
+## Documentation Structure Rules
+
+### Folder Naming
+- Use short, descriptive English words for documentation folders
+- Keep folder names concise and meaningful
+- Use lowercase with hyphens for multi-word folders
+- Examples: `intro`, `guide`, `api`, `config`, `extend`
+
+### File Naming
+- Use English words for all file names
+- Use lowercase with hyphens for multi-word files
+- Keep file names short and descriptive
+- Examples: `README.mdx`, `getting-started.mdx`, `api-reference.mdx`
+
+### Content Language
+- Page titles must be written in Chinese
+- Page content must be written in Chinese
+- Code comments should be in English
+- File paths and technical terms can remain in English
+
+### Documentation Standards
+- Each documentation folder should have a `_category_.json` file for Docusaurus categorization
+- Use `.mdx` extension for files that need React components
+- Use `.md` extension for simple markdown files
+- Include proper frontmatter with title and description
+
+### Code Standards
+- Python: Use type hints in all code
+- Git commits: Follow conventional commit format `<type>(<scope>): <subject>`
+- Use English for all code comments
+
+### Iframe Usage Standards
+- Always wrap iframe elements in a div container for proper styling and layout control
+- Use React JSX syntax for inline styles: `style={{ property: 'value' }}`
+- Set iframe dimensions using percentage values for responsive design
+- Include proper accessibility attributes:
+  - `title` attribute for screen readers
+  - `frameBorder="0"` (camelCase for React)
+- Add fallback content for browsers that don't support iframe
+- Include security attributes for external links:
+  - `rel="noopener noreferrer"` for target="_blank" links
+- Use consistent styling:
+  - Border: `1px solid #e1e4e8`
+  - Border radius: `6px`
+  - Overflow: `hidden` to prevent content spillover
+- Example structure:
+  ```jsx
+  <div style={{ width: '100%', height: '800px', border: '1px solid #e1e4e8', borderRadius: '6px', overflow: 'hidden' }}>
+    <iframe 
+      src="https://example.com" 
+      width="100%" 
+      height="100%" 
+      frameBorder="0"
+      title="Descriptive title"
+      style={{ border: 'none' }}
+    >
+      <p>Fallback content with <a href="https://example.com" target="_blank" rel="noopener noreferrer">link</a></p>
+    </iframe>
+  </div>
+  ```
+
+### LinkPreviewButton Component Standards
+- Use LinkPreviewButton component for displaying link previews with automatic metadata extraction
+- Component uses link-preview-js library for reliable link parsing and metadata extraction
+- Always provide fallback data for better user experience:
+  - `fallbackTitle`: Title to show when webpage title cannot be fetched
+  - `fallbackSummary`: Summary to show when webpage description cannot be fetched
+  - `fallbackIcon`: Icon to show when webpage icon cannot be fetched
+- Choose appropriate size based on context:
+  - `size="big"`: For prominent links, main content areas
+  - `size="small"`: For sidebar links, compact layouts
+- Component automatically handles:
+  - Loading states with spinner animation
+  - Error handling with fallback content
+  - Image loading failures with fallback icons
+  - Security attributes for external links
+- Library integration:
+  - Uses link-preview-js for comprehensive metadata extraction
+  - Supports Open Graph, Twitter Cards, and standard meta tags
+  - Automatic favicon and image extraction
+  - Fallback to Google Favicon service for icons
+- Example usage:
+  ```jsx
+  <LinkPreviewButton 
+    url="https://example.com"
+    size="big"
+    fallbackTitle="Example Website"
+    fallbackSummary="A description of the website"
+    fallbackIcon="/img/custom-icon.svg"
+  />
+  ```
+- Technical considerations:
+  - Based on mature link-preview-js library (43+ versions)
+  - Compatible with React 19 and TypeScript
+  - Handles CORS limitations gracefully
+  - Implements comprehensive error handling and fallbacks

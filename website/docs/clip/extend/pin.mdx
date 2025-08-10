@@ -1,0 +1,166 @@
+---
+title: 链接预览按钮
+description: 展示链接预览按钮组件的使用方法
+---
+
+import LinkPreviewButton from '@site/src/components/LinkPreviewButton';
+
+# 链接预览按钮
+
+链接预览按钮组件可以自动获取网页的标题、摘要和图标，提供美观的链接预览效果。
+
+## 功能特性
+
+- 🔍 **自动获取网页信息**：提取网页标题、描述和图标
+- 🎨 **两种尺寸**：支持 big 和 small 两种样式
+- 📱 **响应式设计**：适配不同屏幕尺寸
+- ⚡ **加载状态**：显示加载动画和错误处理
+- 🔗 **安全链接**：使用 `noopener,noreferrer` 安全属性
+- 📦 **成熟库支持**：基于 link-preview-js 库，提供可靠的链接解析
+
+## 使用方法
+
+### 基本用法
+
+```jsx
+import LinkPreviewButton from '@site/src/components/LinkPreviewButton';
+
+<LinkPreviewButton 
+  url="https://getquicker.net/Share/ActionLists/List?id=8b738f39-1d88-4e63-af27-08da0d4ec4b7"
+/>
+```
+
+### 大尺寸按钮
+
+<LinkPreviewButton 
+  url="https://getquicker.net/Share/ActionLists/List?id=8b738f39-1d88-4e63-af27-08da0d4ec4b7"
+  size="big"
+  fallbackTitle="Cea系列动作库"
+  fallbackSummary="Quicker剪贴板相关动作集合"
+/>
+
+### 小尺寸按钮
+
+<LinkPreviewButton 
+  url="https://getquicker.net/Share/ActionLists/List?id=8b738f39-1d88-4e63-af27-08da0d4ec4b7"
+  size="small"
+  fallbackTitle="Cea系列动作库"
+  fallbackSummary="Quicker剪贴板相关动作集合"
+/>
+
+## 组件属性
+
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| `url` | `string` | - | 要预览的网页链接（必需） |
+| `size` | `'big' \| 'small'` | `'big'` | 按钮尺寸 |
+| `className` | `string` | `''` | 自定义 CSS 类名 |
+| `fallbackTitle` | `string` | `''` | 备用标题（当无法获取网页标题时显示） |
+| `fallbackSummary` | `string` | `''` | 备用摘要（当无法获取网页描述时显示） |
+| `fallbackIcon` | `string` | `''` | 备用图标（当无法获取网页图标时显示） |
+
+## 技术实现
+
+### 前端组件
+
+组件使用 React Hooks 管理状态，包括：
+- 加载状态管理
+- 错误处理
+- 数据缓存
+
+### 链接预览库
+
+组件基于 **link-preview-js** 库实现：
+
+- **成熟稳定**：43个版本迭代，持续维护
+- **功能全面**：支持多种元数据提取
+- **类型安全**：完整的 TypeScript 支持
+- **无依赖冲突**：与 React 19 兼容
+
+### 数据获取方式
+
+1. **使用 link-preview-js**：调用 `getLinkPreview(url)` 获取完整元数据
+2. **智能数据提取**：自动提取标题、描述、图片和图标
+3. **备用方案**：使用 Google Favicon 服务作为图标备用
+4. **错误处理**：完善的错误处理和备用数据显示
+
+### 数据提取策略
+
+1. **标题提取**：按优先级使用：
+   - `title` 标签
+   - `siteName` 元数据
+   - 自定义备用标题
+   - 域名
+
+2. **摘要提取**：按优先级使用：
+   - `description` 元数据
+   - 自定义备用描述
+   - 域名描述
+
+3. **图标提取**：按优先级使用：
+   - 页面图片数组中的第一张
+   - favicon 数组中的第一个
+   - Google Favicon 服务
+   - 自定义备用图标
+
+### 错误处理
+
+- 网络请求失败时使用备用数据
+- 图片加载失败时显示默认图标
+- 解析错误时显示域名作为标题
+- 优雅降级确保用户体验
+
+## 样式定制
+
+组件使用 CSS Modules，支持通过 `className` 属性进行样式定制：
+
+```jsx
+<LinkPreviewButton 
+  url="https://example.com"
+  className="custom-link-preview"
+/>
+```
+
+## 错误处理
+
+当无法获取网页信息时，组件会：
+1. 显示加载状态
+2. 使用备用数据
+3. 显示错误提示
+4. 提供直接链接访问
+
+## 性能优化
+
+- 使用 `useEffect` 进行数据获取
+- 支持数据缓存
+- 图片加载失败时显示备用图标
+- 响应式设计减少重绘
+
+## 限制说明
+
+### CORS 限制
+
+由于浏览器的同源策略，某些网站可能阻止跨域请求：
+
+- **同源网站**：可以正常获取内容
+- **跨域网站**：可能被阻止，此时使用备用数据
+- **解决方案**：使用 Google Favicon 服务作为图标备用方案
+
+### 网络限制
+
+- 某些网站可能阻止爬虫访问
+- 网络连接问题可能导致获取失败
+- 大型网站可能响应较慢
+
+## 最佳实践
+
+1. **提供备用数据**：始终设置 `fallbackTitle` 和 `fallbackSummary`
+2. **处理错误**：组件会自动处理网络错误和解析错误
+3. **性能考虑**：避免在页面加载时同时请求大量链接
+4. **用户体验**：显示加载状态和错误提示
+
+## 依赖库
+
+- **link-preview-js**: 链接预览核心库
+- **cheerio**: HTML 解析库
+- **url**: URL 处理库

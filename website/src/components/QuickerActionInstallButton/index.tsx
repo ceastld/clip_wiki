@@ -1,18 +1,17 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import { fetchQuickerActionInfo } from '../../utils/proxy';
 
 export type QuickerActionInstallButtonProps = {
   /** Quicker shared action URL. If not provided, will be derived from actionId. */
   url?: string;
   /** Action identifier (equal to code in shared links). */
   actionId?: string;
-  /** Optional explicit title to display; if omitted, the component will try to fetch it from the page */
+  /** Optional explicit title to display */
   title?: string;
-  /** Optional explicit icon URL; if omitted, the component will try to fetch it from the page */
+  /** Optional explicit icon URL */
   iconUrl?: string;
-  /** Whether to attempt fetching metadata from the target URL (default: true) */
-  fetchMeta?: boolean;
   /** Optional extra class name for the root */
   className?: string;
 };
@@ -103,38 +102,12 @@ type ActionInfo = {
   [k: string]: unknown;
 };
 
+/**
+ * Fetch action info using CORS proxy
+ */
 async function fetchActionInfoById(id: string, signal?: AbortSignal): Promise<ActionInfo | undefined> {
-  const localProxyUrl = `/api/quicker?id=${encodeURIComponent(id)}`;
-  try {
-    console.log('[QuickerAction] fetch via local proxy start', { id, localProxyUrl });
-    const r = await fetch(localProxyUrl, {
-      method: 'GET',
-      headers: { Accept: 'application/json, text/plain, */*' },
-      signal,
-    });
-    if (!r.ok) {
-      console.warn('[QuickerAction] local proxy non-OK', { id, status: r.status, statusText: r.statusText });
-      return undefined;
-    }
-    try {
-      const json = (await r.json()) as ActionInfo;
-      console.log('[QuickerAction] local proxy success (json)', { id, hasTitle: !!json?.title, hasIcon: !!json?.icon });
-      return json;
-    } catch {
-      const text = await r.text();
-      try {
-        const parsed = JSON.parse(text) as ActionInfo;
-        console.log('[QuickerAction] local proxy success (text->json)', { id, hasTitle: !!parsed?.title, hasIcon: !!parsed?.icon });
-        return parsed;
-      } catch {
-        console.error('[QuickerAction] local proxy parse failed', { id });
-        return undefined;
-      }
-    }
-  } catch {
-    console.error('[QuickerAction] local proxy error', { id });
-    return undefined;
-  }
+  const data = await fetchQuickerActionInfo(id, signal);
+  return data as ActionInfo | undefined;
 }
 
 const QuickerActionInstallButton: React.FC<QuickerActionInstallButtonProps> = ({
@@ -142,15 +115,14 @@ const QuickerActionInstallButton: React.FC<QuickerActionInstallButtonProps> = ({
   actionId,
   title,
   iconUrl,
-  fetchMeta = true,
   className,
 }) => {
   const [meta, setMeta] = useState<FetchedMeta>({});
   const [isCopying, setIsCopying] = useState<boolean>(false);
   const [toastVisible, setToastVisible] = useState<boolean>(false);
 
-  const finalTitle = title ?? meta.title ?? 'Quicker 动作';
-  const finalIconUrl = iconUrl ?? meta.iconUrl;
+  const finalTitle = title || meta.title || 'Quicker 动作';
+  const finalIconUrl = iconUrl || meta.iconUrl;
   const linkHref = useMemo(() => {
     if (url && url.trim().length > 0) {
       const normalized = url.trim().replace(/^@+/, '');
@@ -169,36 +141,30 @@ const QuickerActionInstallButton: React.FC<QuickerActionInstallButtonProps> = ({
     const controller = new AbortController();
 
     async function loadMeta(): Promise<void> {
-      if (!fetchMeta) return;
+      // Only fetch if title and iconUrl are not both provided
+      if (title && iconUrl) return;
+      
       try {
-        // Only use API to fetch metadata
         let resolvedId = (actionId ?? '').trim();
         if (!resolvedId) {
           const idFromUrl = await extractActionIdFromSharedUrl(linkHref);
           if (idFromUrl) resolvedId = idFromUrl;
         }
-        if (!resolvedId) {
-          console.warn('[QuickerAction] no actionId resolved', { actionIdProp: actionId, linkHref });
-        } else {
-          console.log('[QuickerAction] resolved actionId', { resolvedId, actionIdProp: actionId, linkHref });
-        }
-        if (resolvedId) {
-          const info = await fetchActionInfoById(resolvedId, controller.signal);
-          if (info && isMounted) {
-            const next: FetchedMeta = {
-              // Prefer API-defined fields, then safe fallbacks
-              title: (info.title && String(info.title)) || pickTitleFromActionInfo(info) || undefined,
-              iconUrl: (info.icon && absolutizeMaybe(String(info.icon), 'https://getquicker.net'))
-                || pickIconFromActionInfo(info, 'https://getquicker.net')
-                || undefined,
-              description: pickDescriptionFromActionInfo(info) ?? info.description ?? undefined,
-            };
-            console.log('[QuickerAction] set fetched meta', { title: next.title, iconUrl: next.iconUrl, hasDescription: !!next.description });
-            setMeta(next);
-          }
+        if (!resolvedId) return;
+        
+        const info = await fetchActionInfoById(resolvedId, controller.signal);
+        if (info && isMounted) {
+          const next: FetchedMeta = {
+            title: title || (info.title && String(info.title)) || pickTitleFromActionInfo(info) || undefined,
+            iconUrl: iconUrl || (info.icon && absolutizeMaybe(String(info.icon), 'https://getquicker.net'))
+              || pickIconFromActionInfo(info, 'https://getquicker.net')
+              || undefined,
+            description: pickDescriptionFromActionInfo(info) ?? info.description ?? undefined,
+          };
+          setMeta(next);
         }
       } catch {
-        // Silently ignore network/CORS errors; leave fallbacks
+        // Silently ignore network/CORS errors
       }
     }
 
@@ -210,7 +176,7 @@ const QuickerActionInstallButton: React.FC<QuickerActionInstallButtonProps> = ({
       isMounted = false;
       controller.abort();
     };
-  }, [linkHref, actionId, fetchMeta]);
+  }, [linkHref, actionId, title, iconUrl]);
 
   const handleCopy = useCallback(async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -242,12 +208,14 @@ const QuickerActionInstallButton: React.FC<QuickerActionInstallButtonProps> = ({
   const icon = useMemo(() => {
     if (finalIconUrl) {
       return (
-        <img
-          src={finalIconUrl}
-          alt={finalTitle || 'action icon'}
-          className={styles.icon}
-          loading="lazy"
-        />
+        <div className={styles.icon}>
+          <img
+            src={finalIconUrl}
+            alt={finalTitle || 'action icon'}
+            loading="lazy"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
+          />
+        </div>
       );
     }
     return (
@@ -255,7 +223,7 @@ const QuickerActionInstallButton: React.FC<QuickerActionInstallButtonProps> = ({
         <span>⚡</span>
       </div>
     );
-  }, [finalIconUrl]);
+  }, [finalIconUrl, finalTitle]);
 
   return (
     <>
