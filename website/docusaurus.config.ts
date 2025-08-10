@@ -77,8 +77,8 @@ const config: Config = {
     navbar: {
       title: 'Clip Wiki',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Clip Wiki Logo',
+        src: 'img/logo.png',
       },
       items: [
         {
