@@ -12,7 +12,10 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "test:deploy": "node scripts/test-deployments.js",
+    "build:vercel": "cross-env VERCEL=1 npm run build",
+    "build:github": "cross-env GITHUB_PAGES=1 npm run build"
   },
   "dependencies": {
     "@docusaurus/core": "3.8.1",
@@ -30,6 +33,7 @@
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
+    "cross-env": "^7.0.3",
     "typescript": "~5.6.2"
   },
   "browserslist": {

@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": null,
+  "installCommand": "npm install",
+  "devCommand": "npm run start",
+  "regions": ["hkg1"],
+  "env": {
+    "VERCEL": "1"
+  },
+  "functions": {
+    "website/build/**/*.html": {
+      "maxDuration": 30
+    }
+  }
+}

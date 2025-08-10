@@ -4,6 +4,10 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+// Determine deployment platform
+const isVercel = process.env.VERCEL === '1';
+const isGitHubPages = process.env.GITHUB_PAGES === '1' || (!isVercel && process.env.NODE_ENV === 'production');
+
 const config: Config = {
   title: 'Clip Wiki',
   tagline: '知识库',
@@ -15,15 +19,17 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://ceastld.github.io',
+  url: isVercel 
+    ? 'https://clip-wiki.vercel.app'
+    : 'https://ceastld.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/clip_wiki/',
+  baseUrl: isVercel ? '/' : '/clip_wiki/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'ceastld', // Usually your GitHub org/user name.
-  projectName: 'clip_wiki', // Usually your repo name.
+  // Deployment config - conditional based on platform
+  ...(isGitHubPages && {
+    organizationName: 'ceastld', // Usually your GitHub org/user name.
+    projectName: 'clip_wiki', // Usually your repo name.
+  }),
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
