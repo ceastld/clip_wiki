@@ -84,7 +84,7 @@ const config: Config = {
       title: 'Clip Wiki',
       logo: {
         alt: 'Clip Wiki Logo',
-        src: 'img/logo.png',
+        src: 'img/logo.svg',
       },
       items: [
         {
@@ -95,7 +95,7 @@ const config: Config = {
         },
         {to: '/blog', label: '博客', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/ceastld/clip_wiki',
           label: 'GitHub',
           position: 'right',
         },
