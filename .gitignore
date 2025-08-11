@@ -20,3 +20,8 @@ Thumbs.db
 
 website/docs/clip1
 .vercel
+
+# Tutorial files to be ignored
+website/docs/tutorial-basics/
+website/docs/tutorial-extras/
+website/docs/intro.md
