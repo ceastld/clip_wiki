@@ -25,3 +25,8 @@ website/docs/clip1
 website/docs/tutorial-basics/
 website/docs/tutorial-extras/
 website/docs/intro.md
+
+# Temporary files
+tatus
+*.tmp
+*.temp
