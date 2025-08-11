@@ -9,7 +9,7 @@ const isVercel = process.env.VERCEL === '1';
 const isGitHubPages = process.env.GITHUB_PAGES === '1' || (!isVercel && process.env.NODE_ENV === 'production');
 
 const config: Config = {
-  title: 'Clip Wiki',
+  title: 'BetterClip',
   tagline: '知识库',
   favicon: 'img/favicon.ico',
 
@@ -91,7 +91,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: '教程',
+          label: '使用说明',
         },
         {to: '/blog', label: '博客', position: 'left'},
         {
@@ -108,7 +108,7 @@ const config: Config = {
           title: '文档',
           items: [
             {
-              label: '教程',
+              label: '使用说明',
               to: '/docs/intro',
             },
           ],
@@ -139,7 +139,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/ceastld/clip_wiki',
             },
           ],
         },

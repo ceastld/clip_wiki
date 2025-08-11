@@ -1,19 +1,12 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+# Tags for ceastld's blog posts
+# Add your custom tags here
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+welcome:
+  label: Welcome
+  permalink: /welcome
+  description: Welcome and introduction posts
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
-
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+introduction:
+  label: Introduction
+  permalink: /introduction
+  description: Introduction and getting started posts

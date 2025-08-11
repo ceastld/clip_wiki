@@ -13,7 +13,7 @@ export type VideoProps = {
   style?: React.CSSProperties;
 };
 
-export default function Video(props: VideoProps): JSX.Element {
+export default function Video(props: VideoProps): React.JSX.Element {
   const {
     src,
     poster,

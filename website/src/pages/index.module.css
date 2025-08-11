@@ -4,15 +4,99 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding: 6rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.heroDescription {
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.heroVisual {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.heroImage {
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: float 6s ease-in-out infinite;
+}
+
+.clipboardIcon {
+  font-size: 4rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%) translateX(0px); }
+  50% { transform: translateY(-50%) translateX(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 4rem 2rem;
+    min-height: 60vh;
+  }
+  
+  .heroVisual {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 2rem auto 0;
+  }
+  
+  .heroImage {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .clipboardIcon {
+    font-size: 3rem;
   }
 }
 
@@ -20,4 +104,124 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.buttons .button {
+  margin: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+}
+
+.buttons .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.features {
+  padding: 6rem 0;
+  background: #f8f9fa;
+}
+
+.featuresHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.featuresTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.featuresSubtitle {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.cta {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.ctaDescription {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.ctaButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ctaButtons .button {
+  margin: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+}
+
+.ctaButtons .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+  .features {
+    padding: 4rem 0;
+  }
+  
+  .featuresTitle,
+  .ctaTitle {
+    font-size: 2rem;
+  }
+  
+  .featuresSubtitle,
+  .ctaDescription {
+    font-size: 1.1rem;
+  }
+  
+  .cta {
+    padding: 4rem 0;
+  }
+  
+  .buttons,
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .buttons .button,
+  .ctaButtons .button {
+    width: 100%;
+    max-width: 300px;
+  }
 }
